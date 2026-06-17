@@ -5,12 +5,16 @@ use Illuminate\Support\Facades\Route;
 
 //mặc định laravel sẽ thêm prefix '/api' vào trước
 //vidu /api/test
-Route::get('test', function () {
-    return response()->json([
-        'success' => true,
-        'message'  => 'Test API thành công',
-        'status_code' => 201
-    ], 201);
-});
+// Route::get('test', function () {
+//     return response()->json([
+//         'success' => true,
+//         'message'  => 'Test API thành công',
+//         'status_code' => 201
+//     ], 201);
+// });
 
+Route::get('todo', [TodoController::class, 'index']);
 Route::post('todo', [TodoController::class, 'store']);
+Route::get('todo/{id}', [TodoController::class, 'show']);
+Route::put('todo/{id}', [TodoController::class, 'update']);
+Route::delete('todo/{id}', [TodoController::class, 'destroy']);
