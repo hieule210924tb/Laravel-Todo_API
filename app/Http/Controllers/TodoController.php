@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TodoRequest;
+use App\Http\Resources\TodoResource;
 use App\Models\Todo;
 
 // CRUD cho Todo
@@ -10,11 +11,11 @@ class TodoController extends Controller
 {
     public function index()
     {
-        $todo =  Todo::latest()->get();
+        $todo =  Todo::orderBy('id')->get();
         return response()->json([
             'success' => true,
             'message' => 'Hiển thị dữ liệu todo',
-            'data' => $todo
+            'data' =>  TodoResource::collection($todo) // chỉ lấy ra các trường mà TodoResource đã config
         ], 200);
     }
     public function show($id)
@@ -23,7 +24,7 @@ class TodoController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Hiển thị dữ liệu chi tiết todo',
-            'data' => $todo
+            'data' => new TodoResource($todo)
         ], 200);
     }
     public function store(TodoRequest $request)
