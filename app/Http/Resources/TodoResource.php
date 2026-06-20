@@ -16,7 +16,7 @@ class TodoResource extends JsonResource
     {
         return [
             'title' => $this->title,
-            'content' => $this->content,
+            'noi_dung' => $this->content,
         ];
     }
 }
