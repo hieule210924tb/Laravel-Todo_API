@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TodoRequest;
 use App\Http\Resources\TodoResource;
+use App\Jobs\ProcessTodoJob;
 use App\Models\Todo;
 
 // CRUD cho Todo
@@ -34,6 +35,9 @@ class TodoController extends Controller
             'title' => $request->title,
             'content' => $request->content
         ]);
+
+        //Đẩy 1 công việc gì đó vào trong queueđể xử lý
+        ProcessTodoJob::dispatch($todo);
         return response()->json([
             'success' => true,
             'message' => 'Thêm mới todo thành công',
